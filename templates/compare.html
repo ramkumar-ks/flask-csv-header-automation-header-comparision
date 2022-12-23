@@ -1,0 +1,55 @@
+<html>
+<body>
+<style>
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+<h1>S3 HEADERS COMPARISION</h1>
+<form action="compare_header" method="post">
+<div class="row">
+  <div class="column">
+  Enter S3 CSV1 to check header: <input type="text" id="header_input1" name="s3_csv_file1" required><br>
+  <p id="demo"></p>
+  {%if s3_header1|length>0%}
+  <h4>Headers:</h4>
+  {%endif%}
+  {{s3_header1}}
+  
+  </div>                                            
+  <div class="column">                              
+  Enter S3 CSV2 to check header: <input type="text" id="header_input2" name="s3_csv_file2" required><br>
+  {%if s3_header2|length>0%}
+  <h4>Headers:</h4>
+  {%endif%}
+  {{s3_header2}}
+  </div>
+  <div class="column">
+  <input type="submit" name="csv_submit_button1" value="Compare_Headers"><br>
+{%if s3_header1|length==s3_header2|length and s3_header1|length!=0 and s3_header2|length!=0 %}
+	{% for x in range(0,s3_header1|length)%}
+		{%if s3_header1[x]==s3_header2[x]%}
+			{{s3_header1[x]}}<b>=</b>{{s3_header2[x]}}<br>
+		{%endif%}			
+	{%endfor%}
+	<h2 style="color:green">Headers Match</h2>
+{%elif s3_header1|length!=s3_header2|length%}
+<h2 style="color:red">Headers Not Match</h2>
+{%endif%}
+	<br>
+
+  </div>
+</div>
+</form>
+<script>
+
+</script>
+</body>
+</html>

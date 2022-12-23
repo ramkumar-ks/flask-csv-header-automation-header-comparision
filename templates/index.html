@@ -1,0 +1,25 @@
+<html>
+<body>
+<h1>S3 HEADER AUTOMATION</h1>
+<form>
+</form>
+<form action="header_data" method="post">
+<div>
+	<span>Enter S3 location to check header: </span>
+	<input type="text" id="header_input" name="s3_csv_file">
+	<input type="submit" name="csv_submit_button" value="Get_CSV_Headers">
+	<br>
+	{%if s3_header|length>0%}
+	<h2 style="color:blue">Headers: </h2>	
+	{%endif%}
+	{% for x in range(0,s3_header|length)%}
+	<h3 style="font-style:bold">{{s3_header[x]}}</h3>
+	{%endfor%}
+	<br>
+	
+	<button><a href="{{ url_for('compare') }}">Compare</a></button>
+</div>
+</form>
+
+</body>
+</html>
